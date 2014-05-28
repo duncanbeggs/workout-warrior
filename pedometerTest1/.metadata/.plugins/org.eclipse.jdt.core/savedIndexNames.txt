@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+C:\Users\spencer\Documents\android_projects\pedometerTest1\.metadata\.plugins\org.eclipse.jdt.core
+1087215703.index
+375989498.index

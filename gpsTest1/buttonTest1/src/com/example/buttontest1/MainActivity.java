@@ -1,0 +1,86 @@
+package com.example.buttontest1;
+
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.app.Activity;
+//import android.app.AlertDialog;
+import android.content.Context;
+import android.view.Menu;
+//import android.view.View;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+//https://www.youtube.com/watch?v=7-n6p6RxSS8
+TextView textLat; //references to TextView objects
+TextView textLong;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        textLat = (TextView)findViewById(R.id.textLat); //assigns textLat element from xml
+        textLong = (TextView)findViewById(R.id.textLong); 
+        
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); //creates location manager
+        LocationListener ll = new myLocationListener();//look for changes...when changes occur do something
+        //this is an inner class shown below
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll); //min time, min distance, location listener
+        //this links the location manager and location listener
+    }
+        class myLocationListener implements LocationListener{
+
+			@Override
+			public void onLocationChanged(Location location) { //when change a location will be provided
+				// TODO Auto-generated method stub
+				//run everytime location changes
+				if(location != null) //when not null then get the location and set them to pLong and pLat
+				{
+					double pLong = location.getLongitude();
+					double pLat = location.getLatitude();
+					
+					textLat.setText(Double.toString(pLat)); //cast them to strings and set them to textLat and textLong
+					textLong.setText(Double.toString(pLong));
+					
+				}
+			}
+
+			@Override
+			public void onProviderDisabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStatusChanged(String provider, int status,
+					Bundle extras) {
+				// TODO Auto-generated method stub
+				
+			}
+		}
+    
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+   // public void onClick(View v){}
+   // public void onButton1Click(View v){
+   // 	new AlertDialog.Builder(this) //create new alert box
+   // 	.setTitle("Button1") //title of alert box
+   // 	.setMessage("You Clicked The Button!!!") //message in alert box
+   // 	.setNeutralButton("Close", null)//button to close alert box
+   // 	.show();//show alert box
+    	
+   // }
+    
+}
